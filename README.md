@@ -1,4 +1,3 @@
-
 # Log Analyzer
 
 Simple Python project that reads a log file and displays lines marked as FAIL or ERROR.
@@ -23,23 +22,13 @@ This project was created to practice:
 The program:
 1. opens the log file,
 2. reads all lines,
-3. checks which lines start with `FAIL` or `ERROR`,
-4. displays them in the console.
+3. checks which lines start with `FAIL`, `ERROR`, or `WARNING`,
+4. displays the results in the console,
+5. saves a JSON report to `report.json`.
 
 ## Example log lines
 
 ```text
 FAIL: Database connection timeout
 ERROR: Unexpected server response
-
-## JSON report
-
-The program also creates a `report.json` file with:
-- file name,
-- list of found errors,
-- number of FAIL messages,
-- number of ERROR messages,
-- number of WARNING messages,
-- total number of errors.
-
-This makes the project more useful for automation and further processing.
+WARNING: Retrying connection
