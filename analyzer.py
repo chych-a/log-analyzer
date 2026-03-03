@@ -1,3 +1,6 @@
+import json
+
+
 def analyze_log(file_name):
     with open(file_name, "r", encoding="utf-8") as file:
         lines = file.readlines()
@@ -5,6 +8,7 @@ def analyze_log(file_name):
     errors = []
     fail_count = 0
     error_count = 0
+    warning_count = 0
 
     for line in lines:
         line = line.strip()
@@ -17,17 +21,36 @@ def analyze_log(file_name):
             errors.append(line)
             error_count += 1
 
-    return errors, fail_count, error_count
+        elif line.startswith("WARNING"):
+            warning_count += 1
+
+    report = {
+        "file_name": file_name,
+        "errors": errors,
+        "fail_count": fail_count,
+        "error_count": error_count,
+        "warning_count": warning_count,
+        "total_errors": fail_count + error_count
+    }
+
+    return report
 
 
-log_errors, fail_count, error_count = analyze_log("sample.log")
+report = analyze_log("sample.log")
 
 print("Znalezione błędy:")
-for error in log_errors:
+for error in report["errors"]:
     print(error)
 
 print()
 print("Podsumowanie:")
-print("Liczba FAIL:", fail_count)
-print("Liczba ERROR:", error_count)
-print("Łączna liczba błędów:", fail_count + error_count)
+print("Liczba FAIL:", report["fail_count"])
+print("Liczba ERROR:", report["error_count"])
+print("Liczba WARNING:", report["warning_count"])
+print("Łączna liczba błędów:", report["total_errors"])
+
+with open("report.json", "w", encoding="utf-8") as file:
+    json.dump(report, file, indent=4)
+
+print()
+print("Raport został zapisany do pliku report.json")
