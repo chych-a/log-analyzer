@@ -31,3 +31,15 @@ The program:
 ```text
 FAIL: Database connection timeout
 ERROR: Unexpected server response
+
+## JSON report
+
+The program also creates a `report.json` file with:
+- file name,
+- list of found errors,
+- number of FAIL messages,
+- number of ERROR messages,
+- number of WARNING messages,
+- total number of errors.
+
+This makes the project more useful for automation and further processing.
