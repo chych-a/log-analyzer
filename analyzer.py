@@ -16,11 +16,9 @@ def analyze_log(file_name):
         if line.startswith("FAIL"):
             errors.append(line)
             fail_count += 1
-
         elif line.startswith("ERROR"):
             errors.append(line)
             error_count += 1
-
         elif line.startswith("WARNING"):
             warning_count += 1
 
@@ -30,27 +28,32 @@ def analyze_log(file_name):
         "fail_count": fail_count,
         "error_count": error_count,
         "warning_count": warning_count,
-        "total_errors": fail_count + error_count
+        "total_errors": fail_count + error_count,
     }
 
     return report
 
 
-report = analyze_log("sample.log")
+def main():
+    report = analyze_log("sample.log")
 
-print("Znalezione błędy:")
-for error in report["errors"]:
-    print(error)
+    print("Znalezione błędy:")
+    for error in report["errors"]:
+        print(error)
 
-print()
-print("Podsumowanie:")
-print("Liczba FAIL:", report["fail_count"])
-print("Liczba ERROR:", report["error_count"])
-print("Liczba WARNING:", report["warning_count"])
-print("Łączna liczba błędów:", report["total_errors"])
+    print()
+    print("Podsumowanie:")
+    print("Liczba FAIL:", report["fail_count"])
+    print("Liczba ERROR:", report["error_count"])
+    print("Liczba WARNING:", report["warning_count"])
+    print("Łączna liczba błędów:", report["total_errors"])
 
-with open("report.json", "w", encoding="utf-8") as file:
-    json.dump(report, file, indent=4)
+    with open("report.json", "w", encoding="utf-8") as file:
+        json.dump(report, file, indent=4)
 
-print()
-print("Raport został zapisany do pliku report.json")
+    print()
+    print("Raport został zapisany do pliku report.json")
+
+
+if __name__ == "__main__":
+    main()
